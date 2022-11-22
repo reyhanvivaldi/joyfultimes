@@ -2,7 +2,7 @@
 You don't have to struggle in silence, don't carry everything alone ❤️
 
 
-## 🔗 Plikasi
+## 🔗 Aplikasi
 
 
 
@@ -19,17 +19,17 @@ Berdasarkan data dari WHO, sejak terjadinya pandemi COVID-19, tingkat kecemasan 
 
 
 ## 📝 Daftar Modul
-1. Mood Tracker
-2. Mental Health Assessment
-3. Forum
-4. Diary
-5. Notes
-6. Tips & Tricks
+1. Mood Tracker -- Prita
+2. Mental Health Assessment -- Alia
+3. Forum -- Naznien
+4. Diary -- Reyhan
+5. Notes -- Alif
+
 
 
 ## 👨‍👩‍👧‍👦 Peran
 ### User Yang Tidak Login
-- Melihat Tips & Tricks
+- Melihat Homepage
 - Melihat Forum
 - Melihat Notes
 
