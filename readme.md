@@ -2,8 +2,12 @@
 You don't have to struggle in silence, don't carry everything alone ❤️
 
 
-## 🔗 Aplikasi
+## 📱 Aplikasi
 
+
+
+## 🔗 Alur Pengintegrasian
+Integrasi dilakukan dengan mengimplementasikan API endpoint pada backend Django dari [web](https://github.com/reyhanvivaldi/pbp-group) yang sudah dibuat sebelumnya dengan menggunakan JsonResponse. Selanjutnya, mengimplementasikan desain frontend mobile yang menyesuaikan desain [web](https://github.com/reyhanvivaldi/pbp-group), serta melakukan integrasi frontend-backend dengan menggunakan konsep asynchronous HTTP.
 
 
 ## 👨‍💻 Anggota Kelompok:
@@ -24,7 +28,6 @@ Berdasarkan data dari WHO, sejak terjadinya pandemi COVID-19, tingkat kecemasan 
 3. Forum -- Naznien
 4. Diary -- Reyhan
 5. Notes -- Alif
-
 
 
 ## 👨‍👩‍👧‍👦 Peran
