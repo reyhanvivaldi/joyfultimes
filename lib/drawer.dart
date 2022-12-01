@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:joyfultimes/forum.dart';
+import 'package:joyfultimes/diary.dart';
+
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
   @override
@@ -15,8 +17,7 @@ class MyDrawer extends StatelessWidget {
               // Route menu ke halaman utama
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const MyHomePage()),
+                MaterialPageRoute(builder: (context) => const MyHomePage()),
               );
             },
           ),
@@ -58,12 +59,12 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Diary'),
-            // onTap: () {
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const MyWatchList()),
-            //   );
-            // },
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Diary()),
+              );
+            },
           ),
         ],
       ),
