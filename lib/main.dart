@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/drawer.dart';
 import 'package:joyfultimes/forum.dart';
+import 'package:joyfultimes/loginpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -79,27 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Welcome to JoyfulTimes!',
             ),
-            Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Forum()),
-                    );
-                  },
-                  child: const SizedBox(
-                      height: 40,
-                      width: 200,
-                      child: Center(
-                        child: Text(
-                          "Back",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ))),
-            ])
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joyfultimes/loginpage.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:joyfultimes/forum.dart';
 import 'package:joyfultimes/diary.dart';
@@ -63,6 +64,15 @@ class MyDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const Diary()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Login'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
               );
             },
           ),
