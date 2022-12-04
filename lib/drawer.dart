@@ -31,7 +31,7 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
+          const ListTile(
             title: const Text('Notes'),
             // onTap: () {
             //   Navigator.pushReplacement(
@@ -40,7 +40,7 @@ class MyDrawer extends StatelessWidget {
             //   );
             // },
           ),
-          ListTile(
+          const ListTile(
             title: const Text('Mood Tracker'),
             // onTap: () {
             //   Navigator.pushReplacement(

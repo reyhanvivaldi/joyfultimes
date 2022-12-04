@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/drawer.dart';
+import 'package:joyfultimes/signup.dart';
 // import 'package:provider/provider.dart';
 // import 'package:pbp_django_auth/pbp_django_auth.dart';
 
@@ -51,11 +52,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: 25,
                 ),
                 TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person),
-                  )
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person),
+                    )
                   // onChanged: (value) => setState(() => _username = value),
                 ),
                 const SizedBox(
@@ -121,7 +122,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SignUp()),
+                        );
+                      },
                       child: const Text(
                         'Register Now',
                         style: TextStyle(color: Colors.blue),
