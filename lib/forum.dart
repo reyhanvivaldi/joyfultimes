@@ -66,7 +66,7 @@ class _ForumState extends State<Forum> {
                               children: [
                                 Flexible(
                                   child: Text(
-                                    snapshot.data![index].fields.topic,
+                                    snapshot.data![index].topic,
                                     overflow: TextOverflow.fade,
                                   ),
                                 ),

@@ -32,7 +32,7 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
+          ListTile(
             title: const Text('Notes'),
             onTap: () {
               Navigator.pushReplacement(
