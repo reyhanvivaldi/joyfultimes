@@ -1,30 +1,34 @@
-
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/drawer.dart';
-import 'package:joyfultimes/fetch.dart';
-import 'package:joyfultimes/forumpost.dart';
-import 'package:joyfultimes/forumpost_detail.dart';
+import 'package:joyfultimes/notes/pages/fetchnotes.dart';
+import 'package:joyfultimes/notes/model/notesmodel.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class Forum extends StatefulWidget {
-  const Forum({super.key});
+
+
+class Notes extends StatefulWidget {
+  const Notes({super.key});
 
   @override
-  State<Forum> createState() => _ForumState();
+  State<Notes> createState() => _NotesState();
 }
 
-class _ForumState extends State<Forum> {
-  final Future<List<ForumPost>> future = fetchForumPost();
+class _NotesState extends State<Notes> {
+  final Future<List<NotesModel>> future = fetchNotes();
+
   @override
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text ("Forum | JoyfulTimes"),
+        title: const Text ("Notes | JoyfulTimes"),
       ),
       drawer: const MyDrawer(),
-        body: FutureBuilder<List<ForumPost>>(
+      // body
+              body: FutureBuilder<List<NotesModel>>(
           future: future,
-          builder: (context, AsyncSnapshot<List<ForumPost>> snapshot) {
+          builder: (context, AsyncSnapshot<List<NotesModel>> snapshot) {
             if (snapshot.data == null) {
               return const Center(child: CircularProgressIndicator());
             } else {
@@ -43,12 +47,11 @@ class _ForumState extends State<Forum> {
                     itemBuilder: (_, index) => InkWell(
                       // make anything clickable
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ForumPostDetail(
-                                  myForum:snapshot.data![index])),
-                        );
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                             
+                        // );
                       }
                       ,
                       child: Container(
@@ -64,18 +67,17 @@ class _ForumState extends State<Forum> {
                               MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Flexible(
-                                  child: Text(
-                                    snapshot.data![index].topic,
+                                Text(snapshot.data![index].fields.sender),
+                                Text(
+                                    snapshot.data![index].fields.notes,
                                     overflow: TextOverflow.fade,
                                   ),
-                                ),
                               ])),
                     ));
               }
             }
           },
         )
-    );
+    ); // scaffold
   }
 }

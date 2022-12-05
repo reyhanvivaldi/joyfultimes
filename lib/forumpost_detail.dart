@@ -28,7 +28,7 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.myForum.fields.topic,
+                    widget.myForum.topic,
                     style: const TextStyle(
                         fontSize: 15, fontWeight: FontWeight.bold),
                   ),
@@ -41,11 +41,11 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: '${widget.myForum.fields.description}\n'),
+                            text: '${widget.myForum.description}\n'),
                         TextSpan(
-                            text: '${widget.myForum.fields.author}\n'),
+                            text: '${widget.myForum.author}\n'),
                         TextSpan(
-                            text: '${widget.myForum.fields.dateCreated}\n'),
+                            text: '${widget.myForum.dateCreated}\n'),
                       ],
                     ),
                   ),
