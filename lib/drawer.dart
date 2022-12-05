@@ -3,7 +3,7 @@ import 'package:joyfultimes/loginpage.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:joyfultimes/forum.dart';
 import 'package:joyfultimes/diary.dart';
-import 'package:joyfultimes/notes.dart';
+import 'package:joyfultimes/notes/notes.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
