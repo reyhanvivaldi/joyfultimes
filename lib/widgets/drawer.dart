@@ -3,7 +3,9 @@ import 'package:joyfultimes/auth/loginpage.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:joyfultimes/forum/pages/forum.dart';
 import 'package:joyfultimes/diary.dart';
+import 'package:joyfultimes/mood-tracker/page/firstpage.dart';
 import 'package:joyfultimes/notes/pages/notes.dart';
+import 'package:joyfultimes/mood-tracker/page/data.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -41,14 +43,14 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
+          ListTile(
             title: const Text('Mood Tracker'),
-            // onTap: () {
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const MyWatchList()),
-            //   );
-            // },
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MoodTracker()),
+              );
+            },
           ),
           ListTile(
             title: const Text('Assesment'),
