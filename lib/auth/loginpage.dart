@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:joyfultimes/drawer.dart';
-import 'package:joyfultimes/signup.dart';
+import 'package:joyfultimes/widgets/drawer.dart';
+import 'package:joyfultimes/auth/signup.dart';
 // import 'package:provider/provider.dart';
 // import 'package:pbp_django_auth/pbp_django_auth.dart';
 

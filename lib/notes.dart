@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:joyfultimes/drawer.dart';
+import 'package:joyfultimes/widgets/drawer.dart';
 
 
 class Notes extends StatefulWidget {
