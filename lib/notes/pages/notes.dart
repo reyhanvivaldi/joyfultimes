@@ -67,12 +67,11 @@ class _NotesState extends State<Notes> {
                               MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Flexible(
-                                  child: Text(
+                                Text(snapshot.data![index].fields.sender),
+                                Text(
                                     snapshot.data![index].fields.notes,
                                     overflow: TextOverflow.fade,
                                   ),
-                                ),
                               ])),
                     ));
               }
