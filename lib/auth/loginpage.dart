@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:joyfultimes/auth/signup.dart';
 // import 'package:provider/provider.dart';
 // import 'package:pbp_django_auth/pbp_django_auth.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -53,12 +51,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextField(
                     decoration: const InputDecoration(
-                      labelText: 'Username',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.person),
-                    )
-                  // onChanged: (value) => setState(() => _username = value),
-                ),
+                  labelText: 'Username',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person),
+                )
+                    // onChanged: (value) => setState(() => _username = value),
+                    ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -125,7 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => const SignUp()),
+                          MaterialPageRoute(
+                              builder: (context) => const SignUp()),
                         );
                       },
                       child: const Text(
