@@ -1,6 +1,13 @@
+import 'dart:developer';
+
 import 'package:joyfultimes/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:joyfultimes/mood-tracker/pages/home_page.dart';
+import 'dart:convert' as convert;
+
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class MyFormPage extends StatefulWidget {
   const MyFormPage({super.key});
@@ -11,26 +18,54 @@ class MyFormPage extends StatefulWidget {
 
 class _MyFormPageState extends State<MyFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _deskripsi = "";
-  String mood = 'Happy';
+  String deskripsi = "";
+  String mood = 'happy';
   List<String> listmood = [
-    'Happy',
-    'Sad',
-    'Angry',
-    'Blessed',
-    'Stressed',
-    'Bored',
-    'Crazy'
+    'happy',
+    'blessed',
+    'bored',
+    'angry',
+    'sad',
+    'crazy',
   ];
   // double _currentSliderValue = 20;
   DateTime dateTime = DateTime(2022, 12, 09, 23, 14);
   DateTime dateTime1 = DateTime(2022, 12, 09, 23, 14);
+
   TextEditingController timeinput = TextEditingController();
-  double _value = 20;
+  double range = 20;
   String _status = 'idle';
-  Color _statusColor = Colors.amber;
+  Color _statusColor = Color.fromARGB(255, 198, 122, 217);
+
+  void _initMood(request) async {
+    var data = convert.jsonEncode(
+      <String, dynamic>{
+        "title": mood,
+        "description": deskripsi,
+        "start_time": dateTime.toString(),
+        "end_time": dateTime1.toString(),
+        "range": range.toInt(),
+      },
+    );
+
+    final response = await request.postJson(
+        "https://joyfultimes.up.railway.app/cal/event/new-post-free/", data);
+    if (response['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Account has been successfully registered!"),
+      ));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Gagal!"),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     final hours = dateTime.hour.toString().padLeft(2, '0');
     final minutes = dateTime.minute.toString().padLeft(2, '0');
     final hours1 = dateTime.hour.toString().padLeft(2, '0');
@@ -84,13 +119,13 @@ class _MyFormPageState extends State<MyFormPage> {
                     // Menambahkan behavior saat nama diketik
                     onChanged: (String? value) {
                       setState(() {
-                        _deskripsi = value!;
+                        deskripsi = value!;
                       });
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
                       setState(() {
-                        _deskripsi = value!;
+                        deskripsi = value!;
                       });
                     },
                     // Validator sebagai validasi form
@@ -105,12 +140,12 @@ class _MyFormPageState extends State<MyFormPage> {
                 Slider(
                   min: 0.0,
                   max: 100.0,
-                  value: _value,
+                  value: range,
                   divisions: 10,
                   onChanged: (value) {
                     setState(() {
-                      _value = value;
-                      _status = 'active (${_value.round()})';
+                      range = value;
+                      _status = 'active (${value.round()})';
                       _statusColor = Colors.green;
                     });
                   },
@@ -131,14 +166,25 @@ class _MyFormPageState extends State<MyFormPage> {
                   'Status: $_status',
                   style: TextStyle(color: _statusColor),
                 ),
+                const Text(
+                  'Start time',
+                ),
                 ElevatedButton(
                     onPressed: pickDateTime,
                     child: Text(
                         '${dateTime.year}/${dateTime.month}/${dateTime.day} $hours:$minutes')),
+                const Text(
+                  'End time',
+                ),
                 ElevatedButton(
                     onPressed: pickDateTime1,
                     child: Text(
                         '${dateTime1.year}/${dateTime1.month}/${dateTime1.day} $hours1:$minutes1')),
+                ElevatedButton(
+                    onPressed: () {
+                      _initMood(request);
+                    },
+                    child: Text('Add')),
               ],
             ),
           ))),
