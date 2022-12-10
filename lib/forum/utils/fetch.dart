@@ -1,4 +1,4 @@
-import 'package:joyfultimes/forumpost.dart';
+import 'package:joyfultimes/forum/models/forumpost.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 Future<List<ForumPost>> fetchForumPost() async {

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:joyfultimes/drawer.dart';
+import 'package:joyfultimes/widgets/drawer.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+Future<void> main() async {
+  await Hive.initFlutter();
 
-void main() {
+  // open a box
+  await Hive.openBox("Habit_Database");
   runApp(const MyApp());
 }
 
@@ -13,11 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'JoyfulTimes',
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-        ),
-        home: const MyHomePage(),
+      title: 'JoyfulTimes',
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+      ),
+      home: const MyHomePage(),
     );
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:joyfultimes/loginpage.dart';
+import 'package:joyfultimes/auth/loginpage.dart';
 import 'package:joyfultimes/main.dart';
-import 'package:joyfultimes/forum.dart';
-import 'package:joyfultimes/diary.dart';
+import 'package:joyfultimes/forum/pages/forum.dart';
+import 'package:joyfultimes/diary/pages/diaryHome.dart';
 import 'package:joyfultimes/notes/pages/notes.dart';
+import 'package:joyfultimes/mood-tracker/pages/home_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -41,21 +42,21 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
+          ListTile(
             title: const Text('Mood Tracker'),
-            // onTap: () {
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const MyWatchList()),
-            //   );
-            // },
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            },
           ),
           ListTile(
             title: const Text('Assesment'),
             // onTap: () {
             //   Navigator.pushReplacement(
             //     context,
-            //     MaterialPageRoute(builder: (context) => const MyWatchList()),
+            //     MaterialPageRoute(builder: (context) => const Assesment()),
             //   );
             // },
           ),
