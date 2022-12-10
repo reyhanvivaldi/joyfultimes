@@ -3,7 +3,6 @@ import 'package:joyfultimes/auth/loginpage.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:joyfultimes/forum/pages/forum.dart';
 import 'package:joyfultimes/diary/pages/diaryHome.dart';
-import 'package:joyfultimes/diary/pages/diaryForm.dart';
 import 'package:joyfultimes/notes/pages/notes.dart';
 import 'package:joyfultimes/mood-tracker/pages/home_page.dart';
 
@@ -66,7 +65,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const DiaryForm()),
+                MaterialPageRoute(builder: (context) => const Diary()),
               );
             },
           ),

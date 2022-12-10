@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 List<Map> newDiaries = [];
 
@@ -17,6 +19,7 @@ class _DiaryFormState extends State<DiaryForm> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Add diary'),
@@ -46,7 +49,7 @@ class _DiaryFormState extends State<DiaryForm> {
                       setState(() {
                         title = value!;
                       });
-                      print("New title: $title");
+                      print("New title: ");
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
