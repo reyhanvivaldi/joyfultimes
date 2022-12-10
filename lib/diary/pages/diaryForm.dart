@@ -3,14 +3,14 @@ import 'package:joyfultimes/widgets/drawer.dart';
 
 List<Map> newDiaries = [];
 
-class MyFormPage extends StatefulWidget {
-  const MyFormPage({super.key});
+class DiaryForm extends StatefulWidget {
+  const DiaryForm({super.key});
 
   @override
-  State<MyFormPage> createState() => _MyFormPageState();
+  State<DiaryForm> createState() => _DiaryFormState();
 }
 
-class _MyFormPageState extends State<MyFormPage> {
+class _DiaryFormState extends State<DiaryForm> {
   final _formKey = GlobalKey<FormState>();
   String title = "";
   String body = "";
@@ -19,9 +19,9 @@ class _MyFormPageState extends State<MyFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah Budget'),
+        title: Text('Add diary'),
       ),
-      drawer: Drawer(),
+      drawer: const MyDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -34,8 +34,8 @@ class _MyFormPageState extends State<MyFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      hintText: "Beli Sate Pacil",
-                      labelText: "Judul",
+                      hintText: "Diary hari ini",
+                      labelText: "Title",
                       // Menambahkan circular border agar lebih rapi
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -46,6 +46,7 @@ class _MyFormPageState extends State<MyFormPage> {
                       setState(() {
                         title = value!;
                       });
+                      print("New title: $title");
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
@@ -56,7 +57,7 @@ class _MyFormPageState extends State<MyFormPage> {
                     // Validator sebagai validasi form
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Judul tidak boleh kosong!';
+                        return 'Title can not be empty!';
                       }
                       return null;
                     },
@@ -68,7 +69,7 @@ class _MyFormPageState extends State<MyFormPage> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: "Hari ini aku bahagia, ...",
-                      labelText: "body",
+                      labelText: "Body",
                       // Menambahkan circular border agar lebih rapi
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -79,6 +80,7 @@ class _MyFormPageState extends State<MyFormPage> {
                       setState(() {
                         body = value!;
                       });
+                      print("New body: $body");
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
@@ -89,36 +91,40 @@ class _MyFormPageState extends State<MyFormPage> {
                     // Validator sebagai validasi form
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Body tidak boleh kosong!';
+                        return 'Body can not be empty!';
                       }
                       return null;
                     },
                   ),
                 ),
-                TextButton(
-                  child: const Text(
-                    "Simpan",
-                    style: TextStyle(color: Colors.white),
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14))),
+                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        var item = {};
+                        item['title'] = title;
+                        item['body'] = body;
+                        newDiaries.add(item);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Data berhasil disimpan!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    },
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.all(16)),
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      var item = {};
-                      item['title'] = title;
-                      item['body'] = body;
-                      newDiaries.add(item);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Data berhasil disimpan!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    }
-                  },
                 ),
               ],
             ),

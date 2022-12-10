@@ -4,6 +4,9 @@ import 'package:joyfultimes/diary/fetch.dart';
 import 'package:joyfultimes/diary/pages/diaryForm.dart';
 import 'package:joyfultimes/diary/pages/diaryDetail.dart';
 
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+
 class Diary extends StatefulWidget {
   const Diary({super.key});
 
@@ -14,13 +17,15 @@ class Diary extends StatefulWidget {
 class _DiaryState extends State<Diary> {
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Diary | JoyfulTimes"),
         ),
         drawer: const MyDrawer(),
         body: FutureBuilder(
-            future: fetchToDo(),
+            future: fetchToDo(request),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
