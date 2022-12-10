@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -16,12 +20,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'JoyfulTimes',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
+    return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+      child: MaterialApp(
+        title: 'JoyfulTimes',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
+        home: const MyHomePage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }
