@@ -6,7 +6,8 @@ import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:joyfultimes/assessment/model/result.dart';
 
 class AnxietyAssesment extends StatefulWidget {
-  const AnxietyAssesment({super.key});
+  final Assesment assesment;
+  const AnxietyAssesment({super.key, required this.assesment});
 
   @override
   State<AnxietyAssesment> createState() => _AnxietyAssesmentState();
