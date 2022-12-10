@@ -53,12 +53,12 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Assesment'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const Assesment()),
-              );
-            },
+            // onTap: () {
+            //   Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => const Assesment()),
+            //   );
+            // },
           ),
           ListTile(
             title: const Text('Diary'),
