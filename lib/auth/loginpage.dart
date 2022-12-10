@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     });
     if (request.loggedIn) {
       print("Success! Hi $username!");
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Login success! Hi $username!"),
         backgroundColor: Colors.green,
