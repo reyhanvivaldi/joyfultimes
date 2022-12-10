@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:joyfultimes/auth/signup.dart';
-// import 'package:provider/provider.dart';
-// import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:joyfultimes/main.dart';
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,120 +24,178 @@ class _LoginPageState extends State<LoginPage> {
 
   String username = "";
   String password1 = "";
+  String statusMessage = "";
+  void _initLogin(request) async {
+    final response = await request
+        .login("https://joyfultimes.up.railway.app/auth/loginFlutter/", {
+      'username': username,
+      'password': password1,
+    });
+    if (request.loggedIn) {
+      print("Success! Hi $username!");
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Login success! Hi $username!"),
+        backgroundColor: Colors.green,
+      ));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
+      );
+    } else {
+      print("Failed!");
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content:
+            Text("Wrong username or password! *or the system is error hahah"),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final request = context.watch<CookieRequest>();
+    final request = context.watch<CookieRequest>();
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("JoyFulTimes"),
-        backgroundColor: Colors.indigo,
-      ),
+      resizeToAvoidBottomInset: false,
       drawer: const MyDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text(
-                  'LOGIN',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 60.0,
-                    color: Colors.indigo,
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                TextField(
-                    decoration: const InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.person),
-                )
-                    // onChanged: (value) => setState(() => _username = value),
-                    ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  // obscureText: _showPassword,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.lock),
-                    // suffixIcon: IconButton(
-                    //   // icon: Icon(
-                    //   //   // _showPassword ? Icons.visibility : Icons.visibility_off,
-                    //   // ),
-                    //   onPressed: () {
-                    //     setState(() {
-                    //       _showPassword = !_showPassword;
-                    //     });
-                    //   },
-                    // ),
-                  ),
-                  // onChanged: (value) => setState(() => _password = value),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Colors.indigo,
-                    child: const Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Divider(
-                  color: Colors.black,
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.5),
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUp()),
-                        );
-                      },
-                      child: const Text(
-                        'Register Now',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Form(
+                key: _loginFormKey,
+                child: SingleChildScrollView(
+                    child: Container(
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Text(
+                            "Login to JoyfulTimes",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                color: Color.fromARGB(178, 3, 3, 3)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Username ",
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 12),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                            ),
+                            // Menambahkan behavior saat nama diketik
+                            onChanged: (String? value) {
+                              setState(() {
+                                username = value!;
+                              });
+                            },
+                            // Menambahkan behavior saat data disimpan
+                            onSaved: (String? value) {
+                              setState(() {
+                                username = value!;
+                              });
+                            },
+                            // Validator sebagai validasi form
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please fill out this field.";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          // Menggunakan padding sebesar 8 pixels
+                          padding: const EdgeInsets.all(8.0),
+
+                          child: TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: "Password ",
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 12),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                            ),
+                            // Menambahkan behavior saat nama diketik
+                            onChanged: (String? value) {
+                              setState(() {
+                                password1 = value!;
+                              });
+                            },
+                            // Menambahkan behavior saat data disimpan
+                            onSaved: (String? value) {
+                              setState(() {
+                                password1 = value!;
+                              });
+                            },
+                            // Validator sebagai validasi form
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please fill out this field.";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              child: const Text(
+                                "Login",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(14))),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.indigo),
+                              ),
+                              onPressed: () {
+                                if (_loginFormKey.currentState!.validate()) {
+                                  _initLogin(request);
+                                }
+                              }),
+                        ),
+                        Text(statusMessage),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpPage()),
+                            );
+                          },
+                          child: const Text(
+                            'Register Now',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ]),
+                )),
+              ),
+            ],
           ),
         ),
       ),
