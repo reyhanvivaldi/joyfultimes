@@ -32,9 +32,9 @@ class _LoginPageState extends State<LoginPage> {
       'password': password1,
     });
     if (request.loggedIn) {
-      print("Success!");
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Login success!"),
+      print("Success! Hi $username!");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Login success! Hi $username!"),
         backgroundColor: Colors.green,
       ));
       Navigator.pushReplacement(
@@ -44,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       print("Failed!");
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Login failed!"),
+        content:
+            Text("Wrong username or password! *or the system is error hahah"),
         backgroundColor: Colors.red,
       ));
     }
