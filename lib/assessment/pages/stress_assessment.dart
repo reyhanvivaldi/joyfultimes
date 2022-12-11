@@ -2,12 +2,14 @@ import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
+import 'package:joyfultimes/auth/loginpage.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:joyfultimes/assessment/model/result.dart';
+import 'package:joyfultimes/assessment/pages/assessment_main.dart';
 
 class StressAssesment extends StatefulWidget {
-  final Assesment assesment;
-  const StressAssesment({super.key, required this.assesment});
+  const StressAssesment({super.key});
 
   @override
   State<StressAssesment> createState() => _StressAssesmentState();
@@ -74,7 +76,7 @@ class _StressAssesmentState extends State<StressAssesment> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<NetworkService>();
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stress Assessment'),
@@ -159,7 +161,7 @@ class _StressAssesmentState extends State<StressAssesment> with RouteAware {
   }
 
   showResult() async {
-    final request = context.read<NetworkService>();
+    final request = context.watch<CookieRequest>();
     String url = 'https://joyfultimes.up.railway.app/assessment/fetch-stress-result-flutter/';
     Result data;
 
