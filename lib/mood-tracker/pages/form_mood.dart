@@ -52,7 +52,7 @@ class _MyFormPageState extends State<MyFormPage> {
         "https://joyfultimes.up.railway.app/cal/event/new-post-free/", data);
     if (response['status'] == 'success') {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Account has been successfully registered!"),
+        content: Text("Berhasil!"),
       ));
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));

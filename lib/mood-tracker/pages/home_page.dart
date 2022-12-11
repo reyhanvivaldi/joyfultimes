@@ -137,7 +137,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
+                                      "Score: ${snapshot.data![index].fields.range}"),
+                                  Text(
                                       "${snapshot.data![index].fields.deskripsi}"),
+                                  Text(
+                                      "${snapshot.data![index].fields.dateTime}"),
                                 ],
                               ),
                             ));

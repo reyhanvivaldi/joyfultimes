@@ -1,8 +1,12 @@
 import 'package:joyfultimes/forum/models/forumpost.dart';
+import 'package:joyfultimes/forum/pages/forum.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:flutter/material.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:joyfultimes/forum/models/forumpost.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:joyfultimes/main.dart';
 
 class ForumForm extends StatefulWidget {
   const ForumForm({super.key});
@@ -12,14 +16,42 @@ class ForumForm extends StatefulWidget {
 
 class _ForumFormState extends State<ForumForm> {
   final _formKey = GlobalKey<FormState>();
-  String _topic = "";
-  DateTime? _date = DateTime.now();
-  String _description = "";
+  String topic = "";
+  DateTime? date = DateTime.now();
+  String description = "";
   String role = 'Patient';
   List<String> listRole = ['Patient', 'Experts', 'Clinical', 'Patient\'s Relative'];
-
+  void _initSubmitForum(request) async {
+    final response = await request
+        .post(
+        "https://joyfultimes.up.railway.app/forum/flutter/addForum/", {
+      'topic': topic,
+      'description': description,
+      'role':role,
+    }).then((value) {
+      final newValue = new Map<String, dynamic>.from(value);
+      setState(() {
+        if (newValue['status'].toString() == "success") {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Success add forum!"),
+            backgroundColor: Colors.green,
+          ));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const Forum()),
+          );
+        } else
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+            Text("Failed add forum"),
+            backgroundColor: Colors.red,
+          ));
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Comment'),
@@ -49,13 +81,13 @@ class _ForumFormState extends State<ForumForm> {
                     // Menambahkan behavior saat nama diketik
                     onChanged: (String? value) {
                       setState(() {
-                        _topic = value!;
+                        topic = value!;
                       });
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
                       setState(() {
-                        _topic = value!;
+                        topic = value!;
                       });
                     },
                     // Validator sebagai validasi form
@@ -86,13 +118,13 @@ class _ForumFormState extends State<ForumForm> {
                     // Menambahkan behavior saat nama diketik
                     onChanged: (String? value) {
                       setState(() {
-                        _topic = value!;
+                        description = value!;
                       });
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
                       setState(() {
-                        _topic = value!;
+                        description = value!;
                       });
                     },
                     // Validator sebagai validasi form
@@ -135,7 +167,7 @@ class _ForumFormState extends State<ForumForm> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-
+                      _initSubmitForum(request);
                     }
                   },
                 ),
