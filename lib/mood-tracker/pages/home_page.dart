@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Color.fromARGB(171, 63, 81, 181),
           // floatingActionButton: MyFloatingActionButton(onPressed: createNewHabit),
           floatingActionButton: FloatingActionButton(
-            child: const Text('Add Record'),
+            child: const Text('Add'),
             onPressed: () {
               Navigator.push(
                 context,

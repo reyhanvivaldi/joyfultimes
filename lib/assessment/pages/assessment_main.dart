@@ -2,8 +2,12 @@ import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
+import 'package:joyfultimes/auth/loginpage.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
-import 'package:joyfultimes/assessment/model/result.dart';
+import 'package:joyfultimes/assessment/pages/depression_assessment.dart';
+import 'package:joyfultimes/assessment/pages/anxiety_assessment.dart';
+import 'package:joyfultimes/assessment/pages/stress_assessment.dart';
 
 class Assesment extends StatefulWidget {
   const Assesment({super.key});
@@ -15,75 +19,183 @@ class Assesment extends StatefulWidget {
 class _AssesmentState extends State<Assesment> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text ("Assessment | JoyfulTimes"),
-      ),
-      drawer: const MyDrawer(),
-      body: TabBarView(
-        builder: (context) {
-          if (snapshot.data == null) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            if (!snapshot.hasData) {
-              return Column(
-                children: const [
-                  Text(
-                    "Data Kosong",
-                    style: TextStyle(fontSize: 20),
+    final request = context.watch<CookieRequest>();
+    if (!request.loggedIn) {
+      print("Cannot load assessment! You must login first!");
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Assessment | JoyfulTimes"),
+        ),
+        drawer: const MyDrawer(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center, 
+          children: [
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(15.0),
+                child: const Text(
+                  "Sorry, you must login first!",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                    color: Color.fromARGB(178, 3, 3, 3)
                   ),
-                  SizedBox(height: 8),
-                ],
-              );
-            } else {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (_, index) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: snapshot.data![index].watched? Colors.green:Colors.red, width: 2,),
-                    ),
-
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 7),
-                      child: ListTile(
-                        title: Text(
-                          "${snapshot.data![index].title}",
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
-                        ),
-
-                        trailing: Checkbox(
-                          value: snapshot.data![index].watched,
-                          onChanged: (bool? newValue) {
-                            setState(() {
-                              snapshot.data![index].watched = !snapshot.data![index].watched;
-                            });
-                          }
-                        ),
-
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                              DepressionAssesment(
-                                watchList: snapshot.data![index],
-                              )
-                            ),
-                          );
-                        }
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14))
+                ),
+                backgroundColor: MaterialStateProperty.all(Colors.indigo),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text(
+                "Go to login page",
+                style: TextStyle(color: Colors.white),
+              )
+            ),
+          ]
+        ),
+      );
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text ("Assessment | JoyfulTimes"),
+        ),
+        drawer: const MyDrawer(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center, 
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(color: Colors.indigo, width: 2,),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(15.0),
+                    child: const Text(
+                      "Depression Assesment",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                        color: Color.fromARGB(178, 3, 3, 3)
                       ),
                     ),
-                  )
-                ),
-              );
-            }
-          }
-        }
-      )
-    );
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14))
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const DepressionAssesment()),
+                      );
+                    },
+                    child: const Text(
+                      "Start Test",
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ),
+                ]
+              ),
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(color: Colors.indigo, width: 2,),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(15.0),
+                    child: const Text(
+                      "Anxiety Assesment",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                        color: Color.fromARGB(178, 3, 3, 3)
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14))
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AnxietyAssesment()),
+                      );
+                    },
+                    child: const Text(
+                      "Start Test",
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ),
+                ]
+              ),
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(color: Colors.indigo, width: 2,),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(15.0),
+                    child: const Text(
+                      "Stress Assesment",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                        color: Color.fromARGB(178, 3, 3, 3)
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14))
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const StressAssesment()),
+                      );
+                    },
+                    child: const Text(
+                      "Start Test",
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ),
+                ]
+              ),
+            ),
+          ]
+        ),
+      );
+    }
   }
 }
