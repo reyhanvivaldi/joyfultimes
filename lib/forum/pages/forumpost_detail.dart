@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:joyfultimes/forum/pages/forum.dart';
 import 'package:joyfultimes/forum/models/comment.dart';
 import 'package:joyfultimes/forum/utils/fetchComment.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:joyfultimes/forum/pages/commentform.dart';
 
 class ForumPostDetail extends StatefulWidget {
   const ForumPostDetail({super.key, required this.myForum});
@@ -13,9 +16,12 @@ class ForumPostDetail extends StatefulWidget {
 }
 
 class _ForumPostDetailState extends State<ForumPostDetail> {
-  final Future<List<Comment>> future = fetchComment(2);
+
   @override
   Widget build(BuildContext context) {
+
+    final Future<List<Comment>> future = fetchComment(widget.myForum.pk);
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail'),
@@ -78,64 +84,105 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                             style: TextStyle(color: Colors.white),
                           ),
                         ))),
-              ]),
-              FutureBuilder<List<Comment>>(
-                future: future,
-                builder: (context, AsyncSnapshot<List<Comment>> snapshot) {
-                  if (snapshot.data == null) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else {
-                    if (!snapshot.hasData) {
-                      return Column(
-                        children: [
-                          const Text(
-                            "Oh no! Tidak ada watch list :(",
-                          ),
-                          const SizedBox(height: 8),
-                        ],
-                      );
+                if (request.loggedIn)
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommentForm(myForum:widget.myForum)),
+                        );
+                      },
+                      child: const SizedBox(
+                          height: 40,
+                          width: 200,
+                          child: Center(
+                            child: Text(
+                              "Add New Comment",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                      )
+                  ),
+                FutureBuilder<List<Comment>>(
+                  future: future,
+                  builder: (context, AsyncSnapshot<List<Comment>> snapshot) {
+                    if (snapshot.data == null) {
+                      return const Center(child: CircularProgressIndicator());
                     } else {
-                      return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (_, index) => InkWell(
-                            // make anything clickable
-                            // onTap: () {
-                            //   Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ForumPostDetail(
-                            //             myForum:snapshot.data![index])),
-                            //   );
-                            // }
-                            // ,
-                            child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 10),
-                                padding: const EdgeInsets.all(20.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(17.0),
-                                ),
-                                child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          snapshot.data![index].description,
-                                          overflow: TextOverflow.fade,
+                      if (!snapshot.hasData) {
+                        return Column(
+                          children: [
+                            const Text(
+                              "Oh no! Tidak ada watch list :(",
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (_, index) => Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  height:150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo,
+                                    borderRadius: BorderRadius.circular(17.0),
+                                  ),
+                                  child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            snapshot.data![index].description,
+                                            overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
                                         ),
-                                      ),
-                                    ])),
-                          ));
+                                        Flexible(
+                                          child: Text(
+                                            snapshot.data![index].author,
+                                            overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            snapshot.data![index].role,
+                                            overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            snapshot.data![index].dateCreated.toString(),
+                                            overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                      ])),
+                            );
+                      }
                     }
-                  }
-                },
-              )
-            ],
-          ), ),
+                  },
+                )
+              ]),
 
+            ],
+          ),
+      ),
     );
   }
 }
