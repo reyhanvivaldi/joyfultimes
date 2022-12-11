@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names, use_build_context_synchronously
 
-import 'dart:convert' as convert;
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -16,47 +16,49 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
-  Color buttonColor = Color.fromRGBO(254, 185, 0, 100);
-
   String username = "";
   String password1 = "";
   String password2 = "";
-  String statusMessage = "";
 
   void _initRegister(request) async {
-    var data = convert.jsonEncode(
-      <String, String?>{
-        'username': username,
-        'password1': password1,
-        'password2': password2,
-      },
-    );
+    final response = await request.post("https://joyfultimes.up.railway.app/auth/registerFlutter/", {
+      'username':username,
+      'password1':password1,
+      'password2':password2
+    }).then((value) {
+      final newValue = new Map<String, dynamic>.from(value);
+      print(newValue);
+      setState(() {
+        if (newValue['status'].toString() == 'success') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Account has been successfully registered!"),
+            backgroundColor: Colors.indigo,
+          ));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        } else if (newValue['status'].toString() == 'duplicate'){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+            Text("Username already exist!"),
+            backgroundColor: Colors.redAccent,
+          ));
+        } else if (newValue['status'].toString() == 'pass failed'){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Password does not match!"),
+            backgroundColor: Colors.redAccent,
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("An error occured, please try again."),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
+      });
+    });
 
-    print(data);
 
-    final response =
-    await request.postJson("https://joyfultimes.railway.app/auth/registerFlutter", data);
-
-    if (response['status'] == 'success') {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Account has been successfully registered!"),
-      ));
-      Navigator.pushReplacementNamed(context, '/login');
-    } else if (response['status'] == 'duplicate'){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Username already exists!"),
-      ));
-    } else if (response['status'] == 'pass failed'){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Password does not match!"),
-      ));
-    }
-
-    else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("An error occured, please try again."),
-      ));
-    }
   }
 
   @override
@@ -212,7 +214,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                       ),
                     ),
-                    Text(statusMessage),
                     Text("Already have an account?"),
                     TextButton(
                       onPressed: () {
@@ -224,7 +225,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       child: const Text(
                         'Login',
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Colors.indigo),
                       ),
                     ),
                   ]),
