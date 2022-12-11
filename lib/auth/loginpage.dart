@@ -267,6 +267,20 @@ class _LoginPageState extends State<LoginPage> {
                                     style: TextStyle(color: Colors.indigo),
                                   ),
                                 ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (
+                                              context) => const MyHomePage()),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Back to home',
+                                    style: TextStyle(color: Colors.indigo),
+                                  ),
+                                ),
                               ]),
                         )),
                   ),

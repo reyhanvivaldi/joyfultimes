@@ -228,6 +228,19 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: TextStyle(color: Colors.indigo),
                       ),
                     ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                        );
+                      },
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(color: Colors.indigo),
+                      ),
+                    ),
                   ]),
                 )
               ],

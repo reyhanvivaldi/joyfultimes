@@ -26,129 +26,132 @@ class _ForumState extends State<Forum> {
         title: const Text ("Forum | JoyfulTimes"),
       ),
       drawer: const MyDrawer(),
-        body: Column (
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (request.loggedIn)
-              TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForumForm()),
-                    );
-                  },
-                  child: const SizedBox(
-                      height: 40,
-                      width: 200,
-                      child: Center(
-                        child: Text(
-                          "Add New Forum",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                  )
-              ),
-            FutureBuilder<List<ForumPost>>(
-              future: future,
-              builder: (context, AsyncSnapshot<List<ForumPost>> snapshot) {
-                if (snapshot.data == null) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  if (!snapshot.hasData) {
-                    return Column(
-                      children: [
-                        Text(
-                          "Oh no! Tidak ada watch list :(",
-                        ),
-                        const SizedBox(height: 8),
-                      ],
-                    );
-                  } else {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) => InkWell(
-                          // make anything clickable
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForumPostDetail(
-                                      myForum:snapshot.data![index])),
-                            );
-                          },
-                          child: Padding(
-                              padding:const EdgeInsets.all(8.0),
-                              child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.indigo,
-                                    borderRadius: BorderRadius.circular(17.0),
-                                  ),
-                                  child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                              snapshot.data![index].topic,
-                                              overflow: TextOverflow.fade,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                              )
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                              snapshot.data![index].description,
-                                              overflow: TextOverflow.fade,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                              )
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                              snapshot.data![index].author,
-                                              overflow: TextOverflow.fade,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                              )
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                              snapshot.data![index].role,
-                                              overflow: TextOverflow.fade,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                              )
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                              snapshot.data![index].dateCreated.toString(),
-                                              overflow: TextOverflow.fade,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                              )
-                                          ),
-                                        ),
-                                      ]))
+        body: SingleChildScrollView(
+          child: Column (
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (request.loggedIn)
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForumForm()),
+                        );
+                      },
+                      child: const SizedBox(
+                          height: 40,
+                          width: 200,
+                          child: Center(
+                            child: Text(
+                              "Add New Forum",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           )
-                          ,
-                        ));
-                  }
-                }
-              },
-            )
-          ]
+                      )
+                  ),
+                FutureBuilder<List<ForumPost>>(
+                  future: future,
+                  builder: (context, AsyncSnapshot<List<ForumPost>> snapshot) {
+                    if (snapshot.data == null) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else {
+                      if (!snapshot.hasData) {
+                        return Column(
+                          children: [
+                            Text(
+                              "Oh no! Tidak ada watch list :(",
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      } else {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (_, index) => InkWell(
+                              // make anything clickable
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ForumPostDetail(
+                                          myForum:snapshot.data![index])),
+                                );
+                              },
+                              child: Padding(
+                                  padding:const EdgeInsets.all(8.0),
+                                  child: Container(
+                                      padding: const EdgeInsets.all(20),
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        color: Colors.indigo,
+                                        borderRadius: BorderRadius.circular(17.0),
+                                      ),
+                                      child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                  snapshot.data![index].topic,
+                                                  overflow: TextOverflow.fade,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  )
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                  snapshot.data![index].description,
+                                                  overflow: TextOverflow.fade,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  )
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                  snapshot.data![index].author,
+                                                  overflow: TextOverflow.fade,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  )
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                  snapshot.data![index].role,
+                                                  overflow: TextOverflow.fade,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  )
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                  snapshot.data![index].dateCreated.toString(),
+                                                  overflow: TextOverflow.fade,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  )
+                                              ),
+                                            ),
+                                          ]))
+                              )
+                              ,
+                            ));
+                      }
+                    }
+                  },
+                )
+              ]
+          )
         )
+
 
     );
   }
