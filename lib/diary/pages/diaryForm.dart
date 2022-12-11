@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:joyfultimes/diary/model/model.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:joyfultimes/diary/pages/diaryHome.dart';
+import 'dart:convert';
 
 List<Map> newDiaries = [];
 
@@ -16,6 +19,30 @@ class _DiaryFormState extends State<DiaryForm> {
   final _formKey = GlobalKey<FormState>();
   String title = "";
   String body = "";
+
+  void _postData(request) async {
+    var rawdata = {'title': title, 'body': body};
+
+    final response = await request.post(
+        "https://joyfultimes.up.railway.app/diary/add-obj/", rawdata);
+
+    print("BERHASIL 2");
+    if (response['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Diary saved!"),
+        backgroundColor: Colors.green,
+      ));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DiaryHome()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Sorry, there's an error occured!"),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +76,7 @@ class _DiaryFormState extends State<DiaryForm> {
                       setState(() {
                         title = value!;
                       });
-                      print("New title: ");
+                      print("New title: $title");
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
@@ -104,10 +131,6 @@ class _DiaryFormState extends State<DiaryForm> {
                   padding: const EdgeInsets.all(8.0),
                   width: double.infinity,
                   child: ElevatedButton(
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
-                    ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14))),
@@ -116,17 +139,23 @@ class _DiaryFormState extends State<DiaryForm> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         var item = {};
+
                         item['title'] = title;
                         item['body'] = body;
-                        newDiaries.add(item);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Data berhasil disimpan!'),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
+
+                        _postData(request);
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(
+                        //     content: Text('Diary saved!'),
+                        //     backgroundColor: Colors.green,
+                        //   ),
+                        // );
                       }
                     },
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
