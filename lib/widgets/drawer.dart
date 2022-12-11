@@ -5,6 +5,7 @@ import 'package:joyfultimes/forum/pages/forum.dart';
 import 'package:joyfultimes/diary/pages/diaryHome.dart';
 import 'package:joyfultimes/notes/pages/notes.dart';
 import 'package:joyfultimes/mood-tracker/pages/home_page.dart';
+import 'package:joyfultimes/assessment/pages/assessment_main.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -53,12 +54,12 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Assesment'),
-            // onTap: () {
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const Assesment()),
-            //   );
-            // },
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Assesment()),
+              );
+            },
           ),
           ListTile(
             title: const Text('Diary'),
