@@ -81,64 +81,67 @@ class _ForumState extends State<Forum> {
                                   builder: (context) => ForumPostDetail(
                                       myForum:snapshot.data![index])),
                             );
-                          }
+                          },
+                          child: Padding(
+                              padding:const EdgeInsets.all(8.0),
+                              child: Container(
+                                  padding: const EdgeInsets.all(20),
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo,
+                                    borderRadius: BorderRadius.circular(17.0),
+                                  ),
+                                  child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                              snapshot.data![index].topic,
+                                              overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                              snapshot.data![index].description,
+                                              overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                              snapshot.data![index].author,
+                                              overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                              snapshot.data![index].role,
+                                              overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                              snapshot.data![index].dateCreated.toString(),
+                                              overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              )
+                                          ),
+                                        ),
+                                      ]))
+                          )
                           ,
-                          child: Container(
-                              padding: const EdgeInsets.all(20),
-                              height: 150,
-                              decoration: BoxDecoration(
-                                color: Colors.indigo,
-                                borderRadius: BorderRadius.circular(17.0),
-                              ),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                          snapshot.data![index].topic,
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          )
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                          snapshot.data![index].description,
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          )
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                          snapshot.data![index].author,
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          )
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                          snapshot.data![index].role,
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          )
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                          snapshot.data![index].dateCreated.toString(),
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          )
-                                      ),
-                                    ),
-                                  ])),
                         ));
                   }
                 }

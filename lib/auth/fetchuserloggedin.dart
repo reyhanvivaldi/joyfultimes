@@ -1,7 +1,7 @@
 import 'package:joyfultimes/auth/userloggedin.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-Future<List<LoggedIn>> fetchForumPost() async {
+Future<List<LoggedIn>> fetchUserLoggedIn() async {
   var url = Uri.parse('https://joyfultimes.up.railway.app/auth/data/');
   var response = await http.get(
     url,

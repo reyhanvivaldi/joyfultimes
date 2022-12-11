@@ -57,26 +57,18 @@ class _LoginPageState extends State<LoginPage> {
 
   }
   void _initLogout(request) async {
-    final response = await request
-        .logout("https://joyfultimes.up.railway.app/auth/logout/");
-    if (request.loggedIn) {
-      print("Success! Hi $username!");
+    request.loggedIn = false;
+    setState(() {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Login success! Hi $username!"),
+        content: Text("Logout success! Good bye..."),
         backgroundColor: Colors.indigo,
       ));
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
+        MaterialPageRoute(
+            builder: (context) => const MyHomePage()),
       );
-    } else {
-      print("Failed!");
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content:
-        Text("Wrong username or password! *or the system is error hahah"),
-        backgroundColor: Colors.redAccent,
-      ));
-    }
+    });
   }
 
   @override
@@ -104,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor: MaterialStateProperty.all(Colors.indigo),
                         ),
                         onPressed: () {
-
+                          _initLogout(request);
                         },
                         child: const SizedBox(
                             height: 40,
@@ -267,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (
-                                              context) => const MyHomePage()),
+                                              context) => const SignUpPage()),
                                     );
                                   },
                                   child: const Text(

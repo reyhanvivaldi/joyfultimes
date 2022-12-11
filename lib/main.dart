@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:joyfultimes/auth/fetchuserloggedin.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:joyfultimes/auth/userloggedin.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -57,6 +59,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final Future<List<LoggedIn>> future = fetchUserLoggedIn();
     final request = context.watch<CookieRequest>();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -92,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Welcome to JoyfulTimes, ${request.jsonData['username']}!',
+              'Welcome to JoyfulTimes!',
             ),
           ],
         ),

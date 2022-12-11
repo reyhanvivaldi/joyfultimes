@@ -7,6 +7,7 @@ import 'package:joyfultimes/forum/pages/forumpost_detail.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:joyfultimes/main.dart';
 import 'package:provider/provider.dart';
+import 'package:joyfultimes/auth/fetchuserloggedin.dart';
 
 
 class CommentForm extends StatefulWidget {
@@ -19,7 +20,6 @@ class CommentForm extends StatefulWidget {
 class _CommentFormState extends State<CommentForm> {
 
   final _formKey = GlobalKey<FormState>();
-  DateTime? _date = DateTime.now();
   String description = "";
   String role = 'Patient';
   List<String> listRole = ['Patient', 'Experts', 'Clinical', 'Patient\'s Relative'];
