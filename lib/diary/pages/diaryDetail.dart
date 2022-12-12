@@ -17,7 +17,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
   Widget build(BuildContext context) {
     DateTime date = widget.diaryItems.fields.date;
     var covertedHour =
-        (date.hour + 7) > 23 ? (date.hour + 7) - 24 : (date.hour + 7);
+        (date.hour + 14) > 23 ? (date.hour + 14) - 24 : (date.hour + 14);
     String convertedDateTime =
         "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} at ${covertedHour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')} WIB";
 
@@ -70,28 +70,28 @@ class _DiaryDetailState extends State<DiaryDetail> {
                   ],
                 ),
                 // Error when post: Unhandled Exception: FormatException: Unexpected character (at line 2, character 1)
-                // Padding(
-                //   padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 10.0),
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) => DiaryEdit(
-                //                 pk: widget.diaryItems.pk,
-                //                 diaryItems: widget.diaryItems),
-                //           ));
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //       minimumSize: const Size.fromHeight(40),
-                //     ),
-                //     child: const Text(
-                //       'Edit',
-                //     ),
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 10.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DiaryEdit(
+                                pk: widget.diaryItems.pk,
+                                diaryItems: widget.diaryItems),
+                          ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(40),
+                    ),
+                    child: const Text(
+                      'Edit',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);

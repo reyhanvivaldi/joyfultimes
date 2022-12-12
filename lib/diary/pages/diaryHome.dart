@@ -16,7 +16,7 @@ class DiaryHome extends StatefulWidget {
 }
 
 String convertedDateTime(s) {
-  var covertedHour = (s.hour + 7) > 23 ? (s.hour + 7) - 24 : (s.hour + 7);
+  var covertedHour = (s.hour + 14) > 23 ? (s.hour + 14) - 24 : (s.hour + 14);
   return "${s.year.toString()}-${s.month.toString().padLeft(2, '0')}-${s.day.toString().padLeft(2, '0')} at ${covertedHour.toString().padLeft(2, '0')}:${s.minute.toString().padLeft(2, '0')} WIB";
 }
 
