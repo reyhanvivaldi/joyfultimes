@@ -22,12 +22,27 @@ Integrasi dilakukan dengan mengimplementasikan API endpoint pada backend Django 
 Berdasarkan data dari WHO, sejak terjadinya pandemi COVID-19, tingkat kecemasan dan depresi meningkat hingga 25%. Di Indonesia saja, per tahun 2021 silam, diperkirakan setidaknya 1 dari 5 orang menderita atau berpotensi mengalami gangguan mental. Sayangnya, di Indonesia isu kesehatan mental ini sendiri masih dianggap sebagai topik yang tabu, padahal kesehatan mental sama pentingnya dengan kesehatan fisik. Hal ini menyebabkan penderita takut dan malu untuk mengakui kondisinya dan berujung pada isu yang lebih kompleks lagi. JoyfulTimes adalah aplikasi yang bertujuan untuk meruntuhkan dinding ke-tabuan topik kesehatan mental demi menciptakan Indonesia yang lebih bahagia. Melalui aplikasi ini, kami ingin memberikan tempat bagi para penderita dan orang-orang di sekitar untuk saling berbagi cerita, berbagi kebahagiaan, dan menyemangati satu dengan yang lainnya. Melalui JoyfulTimes, kami ingin membuat wadah yang aman dan nyaman bagi semua orang untuk belajar dan meningkatkan kualitas diri.
 
 
-## 📝 Daftar Modul
-1. Mood Tracker -- Prita
-2. Mental Health Assessment -- Alia
-3. Forum -- Naznien
-4. Diary -- Reyhan
-5. Notes -- Alif
+## 📝 Daftar Modul dan Fitur
+### Mood Tracker -- Prita
+Fitur ini hanya dapat diakses oleh user yang sudah login.
+- 
+
+### Mental Health Assessment -- Alia
+Fitur ini hanya dapat diakses oleh user yang sudah login.
+- User dapat mengerjakan _assessment_ mengenai _mental health_, seperti _Depression Assessment_, _Anxiety Assessment_, dan _Stress Assessment_.
+- Jika sudah pernah mengerjakan _assessment_, hasil terakhir dari _assessment_ tersebut akan di tampilkan.
+
+### Diary -- Reyhan
+Fitur ini hanya dapat diakses oleh user yang sudah login.
+- 
+
+### Forum -- Naznien
+Fitur ini dapat diakses oleh user yang belum dan sudah login.
+- 
+
+### Notes -- Alif
+Fitur ini dapat diakses oleh user yang belum dan sudah login.
+- 
 
 
 ## 👨‍👩‍👧‍👦 Peran
