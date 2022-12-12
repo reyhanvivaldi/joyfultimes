@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 Center(
                                   child: Text(
-                                    "Welcome to JoyfulTimes.",
+                                    "Welcome to JoyfulTimes",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 20,
@@ -252,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                                         }
                                       }),
                                 ),
-                                Text("Don't have any account?"),
+                                Text("Don't have an account?"),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pushReplacement(
@@ -277,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
                                     );
                                   },
                                   child: const Text(
-                                    'Back to home',
+                                    'Back to Home',
                                     style: TextStyle(color: Colors.indigo),
                                   ),
                                 ),
