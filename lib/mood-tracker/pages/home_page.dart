@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       print("Cannot load mood tracker! You must login first!");
       return Scaffold(
         appBar: AppBar(
-          title: const Text("Diary | JoyfulTimes"),
+          title: const Text("Mood Tracker | JoyfulTimes"),
         ),
         drawer: const MyDrawer(),
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
