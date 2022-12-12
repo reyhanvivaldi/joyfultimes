@@ -75,7 +75,7 @@ class _AnxietyAssesmentState extends State<AnxietyAssesment> with RouteAware {
   }
 
   showResult() async {
-    final request = context.watch<CookieRequest>();
+    final request = context.read<CookieRequest>();
     String url = 'https://joyfultimes.up.railway.app/assessment/fetch-anxiety-result-flutter/';
     Result data;
 
@@ -87,21 +87,17 @@ class _AnxietyAssesmentState extends State<AnxietyAssesment> with RouteAware {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Center(
-              child: const Text(
-                "Last Anxiety Assessment Result",
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            title: Text(
+              "Last Anxiety Assessment Result",
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            content: Center(
-              child: Text(
-                "${data.result} (${data.date.toLocal().toString().substring(0, 16)})",
-                style: const TextStyle(
-                  fontSize: 16.0,
-                ),
+            content: Text(
+              "${data.result} (${data.date.toLocal().toString().substring(0, 16)})",
+              style: TextStyle(
+                fontSize: 16.0,
               ),
             ),
           );
@@ -199,16 +195,16 @@ class _AnxietyAssesmentState extends State<AnxietyAssesment> with RouteAware {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text(
+                              title: Text(
                                 "Assessment Result",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               content: Text(
                                 resultText,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16.0,
                                 ),
                               ),
