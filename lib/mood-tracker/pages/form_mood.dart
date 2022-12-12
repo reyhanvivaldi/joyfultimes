@@ -72,7 +72,7 @@ class _MyFormPageState extends State<MyFormPage> {
     final minutes1 = dateTime.minute.toString().padLeft(2, '0');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form'),
+        title: Text('Add Record'),
       ),
       body: Form(
           key: _formKey,

@@ -5,7 +5,7 @@ import 'package:joyfultimes/notes/utils/fetchnotes.dart';
 import 'package:joyfultimes/notes/model/notesmodel.dart';
 import 'package:joyfultimes/notes/pages/notesform.dart';
 import 'package:joyfultimes/notes/pages/notesuser.dart';
-import 'dart:convert';
+import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 import 'package:provider/provider.dart';
@@ -46,8 +46,8 @@ class _NotesFormState extends State<NotesForm> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Contoh: Sate Pacil",
-                            labelText: "Judul",
+                            hintText: "Who sent this?",
+                            labelText: "Sender",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
@@ -78,8 +78,8 @@ class _NotesFormState extends State<NotesForm> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Contoh: Sate Pacil",
-                            labelText: "Judul",
+                            hintText: "Ex: Semua perlu waktu",
+                            labelText: "Title",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
@@ -110,8 +110,8 @@ class _NotesFormState extends State<NotesForm> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Contoh: Sate Pacil",
-                            labelText: "Judul",
+                            hintText: "Write your happy thoughts",
+                            labelText: "Notes",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
@@ -147,31 +147,19 @@ class _NotesFormState extends State<NotesForm> {
                         backgroundColor: MaterialStateProperty.all(Colors.blue),
                       ),
                       onPressed: () async {
-                        if(_formKey.currentState!.validate()){
-                          var item = {
-                            'sender' : _sender,
+                        await request.postJson(
+                          "https://joyfultimes.up.railway.app/newNotes/createfromflutter/",
+                          convert.jsonEncode(<String, String>{
+                            'sender': _sender,
                             'title' : _title,
-                            'notes' : _notes
-                          };
-                          final response = await request.post(
-                            "https://joyfultimes.up.railway.app/newNotes/createfromflutter", item);
-
-                        if (response['status'] == 'success') {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Notes Sent!"),
-                          ));
-
-                          Navigator.pushReplacement(
+                            'notes' : _notes,
+                          })
+                        );
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const Notes()),
                         );
-                        } else {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Sorry, there's an error occured!"),
-                        ));
-                        }
-                      }
                     }),
                      TextButton(
                       child: const Text(
