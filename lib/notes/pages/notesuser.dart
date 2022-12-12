@@ -71,7 +71,7 @@ class _NotesUserState extends State<NotesUser> {
       // body
               body: Column (
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                
                 children: [
                   FutureBuilder<List<NotesModel>>(
                     future: fetchUserNotes(request),
@@ -128,6 +128,7 @@ class _NotesUserState extends State<NotesUser> {
                       }
                     },
                   ),
+                  Spacer(flex: 2),
                   TextButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.indigo),
