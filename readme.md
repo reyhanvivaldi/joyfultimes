@@ -25,24 +25,28 @@ Berdasarkan data dari WHO, sejak terjadinya pandemi COVID-19, tingkat kecemasan 
 ## 📝 Daftar Modul dan Fitur
 ### Mood Tracker -- Prita
 Fitur ini hanya dapat diakses oleh user yang sudah login.
-- 
+- User dapat membuat _record_ baru mengenai _mood_ mereka pada hari itu.
+- Record tersebut berisi tipe _mood_, deskripsi, _mood rate_, _start time_, dan _end time_.
 
 ### Mental Health Assessment -- Alia
 Fitur ini hanya dapat diakses oleh user yang sudah login.
 - User dapat mengerjakan _assessment_ mengenai _mental health_, seperti _Depression Assessment_, _Anxiety Assessment_, dan _Stress Assessment_.
-- Jika sudah pernah mengerjakan _assessment_, hasil terakhir dari _assessment_ tersebut akan di tampilkan.
+- Jika sudah pernah mengerjakan _assessment_, hasil terakhir dari _assessment_ tersebut akan di tampilkan terlebih dahulu.
 
 ### Diary -- Reyhan
 Fitur ini hanya dapat diakses oleh user yang sudah login.
-- 
+- User dapat membuat entri baru dalam diary.
+- Entri-entri diary dapat di edit dan juga dihapus.
 
 ### Forum -- Naznien
 Fitur ini dapat diakses oleh user yang belum dan sudah login.
-- 
+- User yang belum login hanya dapat melihat post yang sudah dibuat user-user yang sudah login.
+- User yang sudah login dapat membuat forum baru dan juga dapat reply forum yang ada.
 
 ### Notes -- Alif
 Fitur ini dapat diakses oleh user yang belum dan sudah login.
-- 
+- User yang belum login hanya dapat melihat notes yang sudah dibuat user-user yang sudah login.
+- User yang sudah login dapat membuat notes baru.
 
 
 ## 👨‍👩‍👧‍👦 Peran
