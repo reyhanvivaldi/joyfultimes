@@ -1,6 +1,7 @@
 # Kelompok B05 - JoyfulTimes 🏥
 You don't have to struggle in silence, don't carry everything alone ❤️
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/2b4a93b8-db52-4a27-a7bc-5c641a0a9703/branches/main/badge)](https://appcenter.ms)
 
 ## 📱 Aplikasi
 
