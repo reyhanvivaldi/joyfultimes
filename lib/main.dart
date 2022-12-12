@@ -92,38 +92,66 @@ class _MyHomePageState extends State<MyHomePage> {
                 //       ),
                 //   ),
                 // ),
-                Text("Welcome to JoyfulTimes",
-                    style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold)),
-                Text(
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+                  child: Text("Welcome to JoyfulTimes!",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                ),
+                const Text(
                   "Meet our Team",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 24),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 Image.asset(
                   'assets/images/naz.jpg',
-                  width: 400,
-                  height: 500,
+                  width: 200,
+                  height: 250,
+                ),
+                const Text(
+                  "Naznien Fevrianne Malano",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Image.asset(
                   'assets/images/alia.jpg',
-                  width: 400,
-                  height: 500,
+                  width: 200,
+                  height: 250,
+                ),
+                const Text(
+                  "Alia Widyanita Puspaningrum",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Image.asset(
                   'assets/images/alif.jpg',
-                  width: 400,
-                  height: 500,
+                  width: 200,
+                  height: 250,
+                ),
+                const Text(
+                  "Muhammad Alif Ismady",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Image.asset(
                   'assets/images/prita.jpg',
-                  width: 400,
-                  height: 500,
+                  width: 200,
+                  height: 250,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+                  child: const Text(
+                    "Prita Elisabeth Laura Tarigan",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
                 Image.asset(
                   'assets/images/rey.jpg',
-                  width: 400,
-                  height: 500,
+                  width: 200,
+                  height: 250,
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 50.0),
+                  child: Text(
+                    "Reyhan Vivaldi Adrian",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
               ],
             ),
