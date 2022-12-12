@@ -150,7 +150,7 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                                         ),
                                         Flexible(
                                           child: Text(
-                                              snapshot.data![index].author,
+                                              "written by " + snapshot.data![index].author,
                                               overflow: TextOverflow.fade,
                                               style: const TextStyle(
                                                 color: Colors.white,

@@ -101,6 +101,7 @@ class _ForumState extends State<Forum> {
                                                   overflow: TextOverflow.fade,
                                                   style: const TextStyle(
                                                     color: Colors.white,
+                                                    fontWeight: FontWeight.bold
                                                   )
                                               ),
                                             ),
@@ -115,7 +116,7 @@ class _ForumState extends State<Forum> {
                                             ),
                                             Flexible(
                                               child: Text(
-                                                  snapshot.data![index].author,
+                                                  "written by " + snapshot.data![index].author,
                                                   overflow: TextOverflow.fade,
                                                   style: const TextStyle(
                                                     color: Colors.white,
