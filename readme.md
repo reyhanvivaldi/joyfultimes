@@ -34,9 +34,9 @@ Fitur ini hanya dapat diakses oleh user yang sudah login.
 - Jika sudah pernah mengerjakan _assessment_, hasil terakhir dari _assessment_ tersebut akan di tampilkan terlebih dahulu.
 
 ### Diary -- Reyhan
-Fitur ini hanya dapat diakses oleh user yang sudah login.
+Pengguna bisa membuat diary hariannya yang berisi segala cerita melalui fitur ini.
+- Hanya dapat diakses oleh user yang sudah login.
 - User dapat membuat entri baru dalam diary.
-- Entri-entri diary dapat di edit dan juga dihapus.
 
 ### Forum -- Naznien
 Fitur ini dapat diakses oleh user yang belum dan sudah login.
