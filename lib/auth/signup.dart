@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:joyfultimes/main.dart';
 import 'package:joyfultimes/auth/loginpage.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -233,11 +234,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
+                              builder: (context) => const MyHomePage()),
                         );
                       },
                       child: const Text(
-                        'Login',
+                        'Back to Home',
                         style: TextStyle(color: Colors.indigo),
                       ),
                     ),
