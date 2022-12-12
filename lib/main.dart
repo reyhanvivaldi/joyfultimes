@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:joyfultimes/auth/fetchuserloggedin.dart';
 import 'package:joyfultimes/widgets/drawer.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:joyfultimes/auth/userloggedin.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -57,6 +59,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final Future<List<LoggedIn>> future = fetchUserLoggedIn();
     final request = context.watch<CookieRequest>();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -71,32 +74,78 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       drawer: const MyDrawer(),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Welcome to JoyfulTimes, ${request.jsonData['username']}!',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:  <Widget>[
+            // Container(
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //       image: Image.file(
+            //           File('assets/bg.png'),
+            //           fit: BoxFit.cover,
+            //         )
+            //       ),
+            //   ),
+            // ),
+            Text("Welcome to JoyfulTimes",
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
             ),
-          ],
+            Text("Meet our Team",
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+            Image.asset('assets/images/naz.jpg',
+            width: 400,
+            height: 500,),
+            Image.asset('assets/images/alia.jpg',
+            width: 400,
+            height: 500,),
+            Image.asset('assets/images/alif.jpg',
+            width: 400,
+            height: 500,),
+            Image.asset('assets/images/prita.jpg',
+            width: 400,
+            height: 500,),
+            Image.asset('assets/images/rey.jpg',
+            width: 400,
+            height: 500,),
+           ],
+          ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ) 
+        
+        
+
+
+      // Center(
+      //   // Center is a layout widget. It takes a single child and positions it
+      //   // in the middle of the parent.
+      //   child: Column(
+      //     // Column is also a layout widget. It takes a list of children and
+      //     // arranges them vertically. By default, it sizes itself to fit its
+      //     // children horizontally, and tries to be as tall as its parent.
+      //     //
+      //     // Invoke "debug painting" (press "p" in the console, choose the
+      //     // "Toggle Debug Paint" action from the Flutter Inspector in Android
+      //     // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+      //     // to see the wireframe for each widget.
+      //     //
+      //     // Column has various properties to control how it sizes itself and
+      //     // how it positions its children. Here we use mainAxisAlignment to
+      //     // center the children vertically; the main axis here is the vertical
+      //     // axis because Columns are vertical (the cross axis would be
+      //     // horizontal).
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     children: <Widget>[
+      //       Text("It's time to talk with people who will support you.",
+      //       style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
+      //       ),
+      //       Text("We are a friendly, safe community supporting each other's mental health 24 hours a day, 365 days a year. You are most welcome to join today!")
+            
+      //     ],
+      //   ),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

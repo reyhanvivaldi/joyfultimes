@@ -27,7 +27,8 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
         title: const Text('Detail'),
       ),
       drawer: const MyDrawer(),
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
           padding: const EdgeInsets.all(20),
           height: 800,
           child: Column(
@@ -125,21 +126,23 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                       } else {
                         return ListView.builder(
                           shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (_, index) => Container(
-                                  padding: const EdgeInsets.all(20.0),
-                                  height:150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.indigo,
-                                    borderRadius: BorderRadius.circular(17.0),
-                                  ),
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => Container(
+                              padding: const EdgeInsets.all(20.0),
+                              height:150,
+                              decoration: BoxDecoration(
+                                color: Colors.indigo,
+                                borderRadius: BorderRadius.circular(17.0),
+                              ),
+                              child: Padding(
+                                  padding:const EdgeInsets.all(8.0),
                                   child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Flexible(
                                           child: Text(
-                                            snapshot.data![index].description,
-                                            overflow: TextOverflow.fade,
+                                              snapshot.data![index].description,
+                                              overflow: TextOverflow.fade,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               )
@@ -147,8 +150,8 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            snapshot.data![index].author,
-                                            overflow: TextOverflow.fade,
+                                              snapshot.data![index].author,
+                                              overflow: TextOverflow.fade,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               )
@@ -156,8 +159,8 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            snapshot.data![index].role,
-                                            overflow: TextOverflow.fade,
+                                              snapshot.data![index].role,
+                                              overflow: TextOverflow.fade,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               )
@@ -165,15 +168,17 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            snapshot.data![index].dateCreated.toString(),
-                                            overflow: TextOverflow.fade,
+                                              snapshot.data![index].dateCreated.toString(),
+                                              overflow: TextOverflow.fade,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               )
                                           ),
                                         ),
-                                      ])),
-                            );
+                                      ])
+                              )
+                          ),
+                        );
                       }
                     }
                   },
@@ -182,7 +187,9 @@ class _ForumPostDetailState extends State<ForumPostDetail> {
 
             ],
           ),
+        )
       ),
+
     );
   }
 }

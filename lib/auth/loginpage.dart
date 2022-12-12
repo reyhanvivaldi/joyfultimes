@@ -30,48 +30,45 @@ class _LoginPageState extends State<LoginPage> {
         .login("https://joyfultimes.up.railway.app/auth/loginFlutter/", {
       'username': username,
       'password': password1,
+    }).then((value) {
+      final newValue = new Map<String, dynamic>.from(value);
+      print(newValue['status'].toString());
+      setState(() {
+        if (newValue['status'].toString() == "success") {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Login success! Welcome $username!"),
+            backgroundColor: Colors.indigo,
+          ));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const MyHomePage()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+            Text("Failed to login :("),
+            backgroundColor: Colors.redAccent,
+          ));
+          request.loggedIn = false;
+        }
+      });
     });
-    if (request.loggedIn) {
-      print("Success! Hi $username!");
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Login success! Hi $username!"),
-        backgroundColor: Colors.green,
-      ));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
-      );
-    } else {
-      print("Failed!");
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content:
-            Text("Wrong username or password! *or the system is error hahah"),
-        backgroundColor: Colors.red,
-      ));
-    }
   }
   void _initLogout(request) async {
-    final response = await request
-        .logout("https://joyfultimes.up.railway.app/auth/logout/");
-    if (request.loggedIn) {
-      print("Success! Hi $username!");
+    request.loggedIn = false;
+    setState(() {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Login success! Hi $username!"),
-        backgroundColor: Colors.green,
+        content: Text("Logout success! Good bye..."),
+        backgroundColor: Colors.indigo,
       ));
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
+        MaterialPageRoute(
+            builder: (context) => const MyHomePage()),
       );
-    } else {
-      print("Failed!");
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content:
-        Text("Wrong username or password! *or the system is error hahah"),
-        backgroundColor: Colors.red,
-      ));
-    }
+    });
   }
 
   @override
@@ -98,7 +95,9 @@ class _LoginPageState extends State<LoginPage> {
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.indigo),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _initLogout(request);
+                        },
                         child: const SizedBox(
                             height: 40,
                             width: 200,
@@ -253,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                                         }
                                       }),
                                 ),
-                                Text(statusMessage),
+                                Text("Don't have any account?"),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pushReplacement(
@@ -265,6 +264,20 @@ class _LoginPageState extends State<LoginPage> {
                                   },
                                   child: const Text(
                                     'Register Now',
+                                    style: TextStyle(color: Colors.indigo),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (
+                                              context) => const MyHomePage()),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Back to home',
                                     style: TextStyle(color: Colors.indigo),
                                   ),
                                 ),

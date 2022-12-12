@@ -4,28 +4,66 @@ import 'package:joyfultimes/notes/utils/fetchnotes.dart';
 import 'package:joyfultimes/notes/model/notesmodel.dart';
 import 'package:joyfultimes/notes/pages/notesform.dart';
 import 'package:joyfultimes/notes/pages/notesuser.dart';
+import 'package:joyfultimes/notes/utils/fetchnotesuser.dart';
+
+import 'package:joyfultimes/auth/loginpage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
-
-
-class Notes extends StatefulWidget {
-  const Notes({super.key});
+class NotesUser extends StatefulWidget {
+  const NotesUser({super.key});
 
   @override
-  State<Notes> createState() => _NotesState();
+  State<NotesUser> createState() => _NotesUserState();
 }
 
-class _NotesState extends State<Notes> {
-  final Future<List<NotesModel>> future = fetchNotes();
-
+class _NotesUserState extends State<NotesUser> {
   @override
-
   Widget build(BuildContext context) {
-    return Scaffold(
+    final request = context.watch<CookieRequest>();
+    if (!request.loggedIn) {
+      print("Cannot load notes! You must login first!");
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Notes | JoyfulTimes"),
+        ),
+        drawer: const MyDrawer(),
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(15.0),
+              child: const Text(
+                "Sorry, you must login first!",
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                    color: Color.fromARGB(178, 3, 3, 3)),
+              ),
+            ),
+          ),
+          ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14))),
+                backgroundColor: MaterialStateProperty.all(Colors.indigo),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text(
+                "Go to login page",
+                style: TextStyle(color: Colors.white),
+              )),
+        ]),
+      );
+    } else {
+      return Scaffold(
       appBar: AppBar(
         title: const Text ("Notes | JoyfulTimes"),
       ),
@@ -36,7 +74,7 @@ class _NotesState extends State<Notes> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   FutureBuilder<List<NotesModel>>(
-                    future: future,
+                    future: fetchUserNotes(request),
                     builder: (context, AsyncSnapshot<List<NotesModel>> snapshot) {
                       if (snapshot.data == null) {
                         return const Center(child: CircularProgressIndicator());
@@ -112,31 +150,12 @@ class _NotesState extends State<Notes> {
                           )
                       )
                   ),
-                  TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                      ),
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NotesUser())
-                        );
-                      },
-                      child: const SizedBox(
-                          height: 40,
-                          width: 200,
-                          child: Center(
-                            child: Text(
-                              "See my notes",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                      )
-                  ),
+                  
                 ],)
               
              
     ); // scaffold
+    }
+    ;
   }
 }
