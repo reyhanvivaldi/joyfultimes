@@ -74,6 +74,38 @@ class _AnxietyAssesmentState extends State<AnxietyAssesment> with RouteAware {
     super.initState();
   }
 
+  showResult() async {
+    final request = context.read<CookieRequest>();
+    String url = 'https://joyfultimes.up.railway.app/assessment/fetch-anxiety-result-flutter/';
+    Result data;
+
+    final response = await request.get(url);
+    data = Result.fromMap(response);
+    
+    if (data.result != "") {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              "Last Anxiety Assessment Result",
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Text(
+              "${data.result} (${data.date.toLocal().toString().substring(0, 16)})",
+              style: TextStyle(
+                fontSize: 16.0,
+              ),
+            ),
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -90,11 +122,13 @@ class _AnxietyAssesmentState extends State<AnxietyAssesment> with RouteAware {
             children: <Widget>[
               const Padding(
                 padding: EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'In the last 2 weeks, how often are you bothered by the following problems?',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text(
+                    'In the last 2 weeks, how often are you bothered by the following problems?',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -124,60 +158,74 @@ class _AnxietyAssesmentState extends State<AnxietyAssesment> with RouteAware {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
-                child: TextButton(
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(const Color(0xFF0B36A8)),
-                  ),
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text(
-                              "Assessment Result"),
-                          content: Text(resultText),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    new ElevatedButton(
+                      child: const Text(
+                        "Back",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14))
+                        ),
+                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                      ),
+                      onPressed: () async {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Assesment()),
                         );
                       },
-                    );
-                    await request.postJson(
-                        "https://joyfultimes.up.railway.app/assessment/add-anxiety-result-flutter/",
-                        convert.jsonEncode(<String, String>{
-                          'result': resultText,
-                        })
-                    );
-                  },
-                ),
+                    ),
+                    new ElevatedButton(
+                      child: const Text(
+                        "Submit",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14))
+                        ),
+                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                      ),
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                "Assessment Result",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              content: Text(
+                                resultText,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                        await request.postJson(
+                          "https://joyfultimes.up.railway.app/assessment/add-anxiety-result-flutter/",
+                          convert.jsonEncode(<String, String>{
+                            'result': resultText,
+                          })
+                        );
+                      },
+                    ),
+                  ]
+                )
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  showResult() async {
-    final request = context.watch<CookieRequest>();
-    String url = 'https://joyfultimes.up.railway.app/assessment/fetch-anxiety-result-flutter/';
-    Result data;
-
-    final response = await request.get(url);
-    data = Result.fromMap(response);
-    
-    if (data.result != "") {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Last Anxiety Assessment Result"),
-            content: Text("${data.result} (${data.date.toLocal().toString().substring(0, 16)})"),
-          );
-        },
-      );
-    }
   }
 }

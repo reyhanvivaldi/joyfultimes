@@ -72,123 +72,186 @@ class _AssesmentState extends State<Assesment> {
         drawer: const MyDrawer(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center, 
-          children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: Colors.indigo, width: 2,),
+          children: <Widget>[
+            new Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, blurRadius: 2.0)
+                ]
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Flex(
+                direction: Axis.horizontal,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(15.0),
-                    child: const Text(
-                      "Depression Assesment",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        color: Color.fromARGB(178, 3, 3, 3)
-                      ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        new Text(
+                          "Depression Assesment",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        new Text(
+                          "If you're unsure if you are depressed, our 5-minute test can help evaluate your mood.",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        new ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14))
+                            ),
+                            backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const DepressionAssesment()),
+                            );
+                          },
+                          child: const Text(
+                            "Start Test",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ),
+                      ],
                     ),
-                  ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))
-                      ),
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const DepressionAssesment()),
-                      );
-                    },
-                    child: const Text(
-                      "Start Test",
-                      style: TextStyle(color: Colors.white),
-                    )
                   ),
                 ]
               ),
             ),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: Colors.indigo, width: 2,),
+            new Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, blurRadius: 2.0)
+                ]
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Flex(
+                direction: Axis.horizontal,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(15.0),
-                    child: const Text(
-                      "Anxiety Assesment",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        color: Color.fromARGB(178, 3, 3, 3)
-                      ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        new Text(
+                          "Anxiety Assesment",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        new Text(
+                          "Find out if your anxiety could be a sign of something more serious.",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        new ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14))
+                            ),
+                            backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AnxietyAssesment()),
+                            );
+                          },
+                          child: const Text(
+                            "Start Test",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ),
+                      ],
                     ),
-                  ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))
-                      ),
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const AnxietyAssesment()),
-                      );
-                    },
-                    child: const Text(
-                      "Start Test",
-                      style: TextStyle(color: Colors.white),
-                    )
                   ),
                 ]
               ),
             ),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: Colors.indigo, width: 2,),
+            new Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, blurRadius: 2.0)
+                ]
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Flex(
+                direction: Axis.horizontal,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(15.0),
-                    child: const Text(
-                      "Stress Assesment",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        color: Color.fromARGB(178, 3, 3, 3)
-                      ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        new Text(
+                          "Stress Assesment",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        new Text(
+                          "Find out if your feelings are a sign of something more serious.",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        new ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14))
+                            ),
+                            backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const StressAssesment()),
+                            );
+                          },
+                          child: const Text(
+                            "Start Test",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ),
+                      ],
                     ),
-                  ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))
-                      ),
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const StressAssesment()),
-                      );
-                    },
-                    child: const Text(
-                      "Start Test",
-                      style: TextStyle(color: Colors.white),
-                    )
                   ),
                 ]
               ),
