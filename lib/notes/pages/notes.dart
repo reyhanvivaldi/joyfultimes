@@ -35,6 +35,8 @@ class _NotesState extends State<Notes> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text("Send notes to people in need",
+                  style: const TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
                   FutureBuilder<List<NotesModel>>(
                     future: future,
                     builder: (context, AsyncSnapshot<List<NotesModel>> snapshot) {
@@ -83,7 +85,7 @@ class _NotesState extends State<Notes> {
                                               snapshot.data![index].fields.notes,
                                               overflow: TextOverflow.fade,
                                             ),
-                                            Text(snapshot.data![index].fields.sender),
+                                            Text("-" + snapshot.data![index].fields.sender),
                                         ])),
                               ));
                         }

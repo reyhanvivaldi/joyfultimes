@@ -5,6 +5,7 @@ import 'package:joyfultimes/notes/utils/fetchnotes.dart';
 import 'package:joyfultimes/notes/model/notesmodel.dart';
 import 'package:joyfultimes/notes/pages/notesform.dart';
 import 'package:joyfultimes/notes/pages/notesuser.dart';
+import 'package:joyfultimes/auth/loginpage.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
@@ -30,11 +31,51 @@ class _NotesFormState extends State<NotesForm> {
   @override
   Widget build(BuildContext context){
     final request = context.watch<CookieRequest>();
+    if (!request.loggedIn) {
+      print("Cannot send notes! You must login first!");
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Notes | JoyfulTimes"),
+        ),
+        drawer: const MyDrawer(),
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(15.0),
+              child: const Text(
+                "Sorry, you must login first!",
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                    color: Color.fromARGB(178, 3, 3, 3)),
+              ),
+            ),
+          ),
+          ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14))),
+                backgroundColor: MaterialStateProperty.all(Colors.indigo),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text(
+                "Go to login page",
+                style: TextStyle(color: Colors.white),
+              )),
+        ]),
+      );
+    } else {}
     return Scaffold(
       appBar: AppBar(
         title: Text('Send a Note'),
         ),
       drawer: const MyDrawer(),
+      
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -138,7 +179,9 @@ class _NotesFormState extends State<NotesForm> {
                         },
                     ),
                       ),
-                    TextButton(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
                       child: const Text(
                         "Send",
                         style: TextStyle(color: Colors.white),
@@ -160,8 +203,15 @@ class _NotesFormState extends State<NotesForm> {
                           MaterialPageRoute(
                               builder: (context) => const Notes()),
                         );
+
+                        
                     }),
-                     TextButton(
+                      ),
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        
+                        child:TextButton(
+                          
                       child: const Text(
                         "Go Back",
                         style: TextStyle(color: Colors.white),
@@ -179,6 +229,8 @@ class _NotesFormState extends State<NotesForm> {
                         
                       },
                     ),
+                      ),
+                     
                     ],
                   ),
                 ),
