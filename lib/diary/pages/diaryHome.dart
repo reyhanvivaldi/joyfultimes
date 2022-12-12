@@ -15,6 +15,11 @@ class DiaryHome extends StatefulWidget {
   State<DiaryHome> createState() => _DiaryHomeState();
 }
 
+String convertedDateTime(s) {
+  var covertedHour = (s.hour + 7) > 23 ? (s.hour + 7) - 24 : (s.hour + 7);
+  return "${s.year.toString()}-${s.month.toString().padLeft(2, '0')}-${s.day.toString().padLeft(2, '0')} at ${covertedHour.toString().padLeft(2, '0')}:${s.minute.toString().padLeft(2, '0')} WIB";
+}
+
 class _DiaryHomeState extends State<DiaryHome> {
   @override
   Widget build(BuildContext context) {
@@ -131,6 +136,27 @@ class _DiaryHomeState extends State<DiaryHome> {
                                           style: const TextStyle(
                                             fontSize: 16.0,
                                           ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0.0, 10.0, 0.0, 0.0),
+                                          child: RichText(
+                                              text: TextSpan(
+                                                  style: const TextStyle(
+                                                    fontSize: 16.0,
+                                                    color: Colors.black,
+                                                  ),
+                                                  children: [
+                                                const TextSpan(
+                                                    text: 'Last updated on: ',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                TextSpan(
+                                                    text: convertedDateTime(
+                                                        snapshot.data![index]
+                                                            .fields.date))
+                                              ])),
                                         ),
                                       ],
                                     ),
