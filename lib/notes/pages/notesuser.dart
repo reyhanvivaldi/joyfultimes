@@ -4,6 +4,7 @@ import 'package:joyfultimes/notes/utils/fetchnotes.dart';
 import 'package:joyfultimes/notes/model/notesmodel.dart';
 import 'package:joyfultimes/notes/pages/notesform.dart';
 import 'package:joyfultimes/notes/pages/notesuser.dart';
+import 'package:joyfultimes/notes/pages/notes.dart';
 import 'package:joyfultimes/notes/utils/fetchnotesuser.dart';
 
 import 'package:joyfultimes/auth/loginpage.dart';
@@ -69,10 +70,12 @@ class _NotesUserState extends State<NotesUser> {
       ),
       drawer: const MyDrawer(),
       // body
-              body: Column (
+              body: 
+              Column (
                 mainAxisAlignment: MainAxisAlignment.center,
-                
                 children: [
+                  Text("This are the notes you sent..\nThankyou",
+                  style: const TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
                   FutureBuilder<List<NotesModel>>(
                     future: fetchUserNotes(request),
                     builder: (context, AsyncSnapshot<List<NotesModel>> snapshot) {
@@ -137,7 +140,7 @@ class _NotesUserState extends State<NotesUser> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const NotesForm())
+                              builder: (context) => const Notes())
                         );
                       },
                       child: const SizedBox(
@@ -145,7 +148,7 @@ class _NotesUserState extends State<NotesUser> {
                           width: 200,
                           child: Center(
                             child: Text(
-                              "Add New Notes",
+                              "Go Back",
                               style: TextStyle(color: Colors.white),
                             ),
                           )
